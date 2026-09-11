@@ -1,11 +1,11 @@
 {
   "origin": "http://127.0.0.1:8787",
-  "checkedAt": "2026-09-11T08:30:59.641Z",
+  "checkedAt": "2026-09-11T16:28:33.447Z",
   "checks": [
     {
       "path": "/",
       "status": 200,
-      "bytes": 29212,
+      "bytes": 29367,
       "robots": "noindex, nofollow"
     },
     {
@@ -53,7 +53,7 @@
     {
       "path": "/owner",
       "status": 200,
-      "bytes": 13422,
+      "bytes": 13089,
       "robots": "noindex, nofollow"
     },
     {
@@ -94,19 +94,19 @@
     },
     {
       "path": "/api/owner/products",
-      "status": 503
+      "status": 401
     },
     {
       "path": "/api/owner/inbox",
-      "status": 503
+      "status": 401
     },
     {
       "path": "/api/owner/media/unknown",
-      "status": 503
+      "status": 401
     },
     {
       "path": "/api/media/unknown",
-      "status": 404
+      "status": 503
     },
     {
       "path": "/api/downloads/private.zip",
@@ -118,6 +118,6 @@
     }
   ],
   "forgedCheckout": 403,
-  "conceptCheckout": 409,
+  "conceptCheckout": 503,
   "recovery": "https://app.lemonsqueezy.com/my-orders"
 }

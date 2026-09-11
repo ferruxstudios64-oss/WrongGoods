@@ -57,3 +57,5 @@ next-env.d.ts
 *.rar
 /test-results/
 /playwright-report/
+/supabase/.temp/
+/supabase/.branches/

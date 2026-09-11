@@ -21,6 +21,7 @@ export async function verifyAccessToken(token: string, issuer: string, audience:
   } catch (error) { if (error instanceof HttpError) throw error; throw new HttpError(401, 'Sign in through the owner access gateway.'); }
 }
 export async function requireOwner(request: Request): Promise<string> {
+  if (setting('SUPABASE_URL')) return (await import('./supabase-auth')).requireSupabaseOwner(request);
   const issuer = setting('CF_ACCESS_ISSUER').replace(/\/$/, ''); const audience = setting('CF_ACCESS_AUD');
   const emails = setting('OWNER_EMAILS').split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
   if (!/^https:\/\/[a-z0-9-]+\.cloudflareaccess\.com$/.test(issuer) || !audience || !emails.length) throw new HttpError(503, 'Owner access is not configured.');

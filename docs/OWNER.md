@@ -2,9 +2,9 @@
 
 ## Sign in
 
-Open `/owner` on the configured deployment. Cloudflare Access must protect `/owner*` and `/api/owner/*`, with your approved email address in its allow policy. Complete its normal sign-in flow. The application also verifies the signed Access token and server-side email allowlist on each privileged request.
+Open `/owner` and enter your approved email and Supabase password. The server checks the email is confirmed and allowed, validates the token with Supabase Auth, and checks that its session still exists. The HTTP-only session cookie lasts at most one hour; sign in again after it expires. No refresh token is stored in the browser. **Sign out** revokes that session and clears the cookie.
 
-Local development intentionally has no password shortcut or owner bypass. A locked studio or service-configuration error means authentication or private storage has not been configured. It does not mean a draft was saved. See the deployment guide for the environment variable names and bindings.
+First create the owner account in Supabase Authentication ? Users using an email whose inbox you control. Account provisioning and password resets are performed by the project administrator. There is no public owner registration or local authentication bypass. See [Supabase setup](SUPABASE.md).
 
 ## Prepare a collection
 

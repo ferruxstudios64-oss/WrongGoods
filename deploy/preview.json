@@ -1,0 +1,14 @@
+{
+  "backend": "supabase",
+  "supabase": {
+    "projectId": "ggxybgbnkyozweoyppxz",
+    "url": "https://ggxybgbnkyozweoyppxz.supabase.co",
+    "publishableKey": "sb_publishable_4u0CyXzh0lS_YyJvnRv9xQ_GOMaP5zb",
+    "privateBucket": "wronggoods-studio"
+  },
+  "retainedD1": {
+    "name": "wronggoods-preview",
+    "id": "d85bce0e-d804-43a3-bcb8-e7293b4c3135"
+  },
+  "privateBucket": null
+}

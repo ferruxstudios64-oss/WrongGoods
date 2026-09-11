@@ -15,12 +15,12 @@
 
 https://wronggoods-preview.64v2swksgt.workers.dev
 
-The preview has no cloud D1/R2 bindings. Browsing works; cloud contact/signup report unavailable. Owner login, upload and sales remain locked. Cloudflare CLI OAuth login is verified, but R2 is not enabled and D1 contains no databases. The application code is implemented; this is **not a live trading launch**.
+The deployed preview currently uses D1 for contact/signup persistence; both were verified and synthetic test records removed. R2 remains disabled. The additive Supabase migration has been applied and tested, with existing catalogue data preserved. The Worker switch is pending a locally supplied server key and owner account. This is **not a live trading launch**.
 
 ## Remaining owner inputs and approvals — one checklist
 
-1. **Cloud services:** approve provisioning `wronggoods-preview` D1 and a Standard private `wronggoods-private-preview` R2 bucket; enable R2 in the Cloudflare dashboard after reviewing its billing terms. Confirm the intended Cloudflare plan. No public bucket/custom domain will be used.
-2. **Owner sign-in:** choose the approved owner email(s), configure Cloudflare Access for `/owner*` and `/api/owner/*`, and supply the issuer/audience through deployment settings. Test a real sign-in and sign-out.
+1. **Supabase connection:** save `SUPABASE_SECRET_KEY` locally, configure the private studio bucket, upload the Worker secret, then deploy the reviewed Supabase configuration. Follow [the setup guide](SUPABASE.md). No Cloudflare billing or R2 activation is needed.
+2. **Owner sign-in:** create the approved owner account in Supabase Authentication and exercise real sign-in, upload, draft persistence and sign-out. Cloudflare Access is superseded.
 3. **Commerce:** create/approve a Lemon Squeezy store, complete merchant onboarding and tax settings, create a GBP sandbox product/variant, upload the same finished archive there, and enter API/webhook secrets locally. Verify sandbox payment, failed/cancelled checkout, webhook delivery, correct files, recovery and refund behavior with the real provider. No live mode before this passes.
 4. **Products and policies:** supply actual archives, inspected contents, tested compatibility, prices, approved product licence terms, seller details, refund/cancellation policy and data-retention decisions. Initial concepts stay unavailable until verified.
 5. **Brand assets:** supply the references/PDF and exact approved offset-O master or documented ratio. No ratio has been invented.

@@ -15,7 +15,7 @@ pnpm db:migrate:local
 pnpm dev
 ```
 
-Development: **http://localhost:5173**. Use the explicit address and port. Leave the process running. A clean first start can spend about a minute preparing dependencies. Local D1 and R2 state lives in ignored `.wrangler/state`; this does not create cloud resources or charges.
+Development: **http://localhost:5173**. Use the explicit address and port. Leave the process running. A clean first start can spend about a minute preparing dependencies. Without Supabase settings, local D1 and R2 state lives in ignored `.wrangler/state`; this does not create cloud resources or charges.
 
 ```powershell
 pnpm typecheck
@@ -32,16 +32,16 @@ On Windows, stop `pnpm start` with Ctrl+C before rebuilding: its running Worker 
 ## Implemented workflows
 
 - Server-backed published catalogue, original concept previews, search, department/tone filters, product galleries, precise release information and useful empty states.
-- Owner wizard at `/owner`: private drafts, validated image and ZIP uploads, preview, explicit publication, archival and revision-conflict protection. Cloudflare Access signatures and the owner email allowlist are verified on the server.
+- Owner wizard at `/owner`: private drafts, validated image and ZIP uploads, preview, explicit publication, archival and revision-conflict protection. Supabase Auth validates the owner email and an active server session on each privileged request.
 - Contact form, persisted launch-update consent and private owner inbox/subscriber removal at `/owner/inbox`. No automated marketing sender is configured.
 - Lemon Squeezy hosted checkout integration, signed and idempotent order/refund webhooks, browser-bound verified status, and provider-managed customer download/recovery. Test mode is the default.
-- Private R2 review archives and draft images; only images currently referenced by published products have public image routes. Private archive routes never provide paid files directly.
+- Private Supabase Storage review archives and draft images; only images currently referenced by published products have public image routes. Private archive routes never provide paid files directly.
 
 The private review ZIP must also be uploaded to the matching Lemon Squeezy variant. Its API does not provide product-file upload. Publication checks the provider store, variant, payment mode, fixed GBP price and matching published download filename, plus the owner's explicit confirmation of matching content. This is a documented two-service release step, not automatic archive synchronisation.
 
 ## Current preview and limits
 
-Cloud preview: **https://wronggoods-preview.64v2swksgt.workers.dev**. It is a separate Worker with no custom-domain routes, live payments disabled, and no cloud database or R2 binding. Contact/signup correctly report unavailable on that preview; they persist successfully in the local database. Owner access is locked until Access is configured. No real product has been released.
+Cloud preview: **https://wronggoods-preview.64v2swksgt.workers.dev**. The currently deployed version uses the approved D1 database; contact and signup persistence were verified. R2 is disabled and live payments remain off. The Supabase migration is applied and verified, with the original catalogue preserved and DAYSHIFT imported as a private review draft. Switching the Worker requires the server key and owner account described in [Supabase setup](docs/SUPABASE.md). No real product has been released.
 
 See [deployment setup](docs/DEPLOYMENT.md), [owner guide](docs/OWNER.md), [launch dependencies](docs/LAUNCH.md), [security/commerce design](docs/ARCHITECTURE.md), and [verification evidence](docs/VERIFICATION.md).
 

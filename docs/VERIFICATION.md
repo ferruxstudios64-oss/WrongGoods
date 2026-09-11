@@ -40,3 +40,15 @@ The preview is hosted at https://wronggoods-preview.64v2swksgt.workers.dev with 
 Initial Git push dry-run returned HTTP 403 for the local account `Tawseen`. The owner completed normal Git Credential Manager sign-in with `ferruxstudios64-oss`. Repository-local credential selection now uses that account, and the push dry-run succeeds. Remote commit verification is performed after the normal push and reported with delivery; no force push or credential-bearing remote URL is used.
 
 Windows rebuild note: the running `pnpm start` Worker initially locked `dist`, causing `EPERM`. Stopping that process before the build resolved it. This is documented in the local setup instructions.
+
+
+## Supabase migration ? 11 September 2026
+
+- Connected to existing WrongGoods project in WG; organisation plan Free. Original schema and seeded catalogue retained.
+- Applied the additive `wg_storefront` migration; one legacy product imported as an unpublished review draft. Verified server-only RPC grants and private schema isolation.
+- Real PostgreSQL integration under service_role passed every prepared query, atomic rate counters, draft CRUD, asset metadata, inbox persistence, terminal refunds and missing-session rejection. All verification writes rolled back.
+- 27 Node tests pass, including four new Supabase transport/auth/storage tests. Type checking, lint and production build pass.
+- Local production HTTP smoke: 24 checks pass. Owner login browser screen verified at 390 px with no horizontal overflow or broken images. Screenshots in `artifacts/supabase-owner-*.png`.
+- D1 read-only check found zero products, messages, signups and orders; retained resource is not deleted.
+- Supabase security advisor: no warning/error findings; eight informational RLS-without-policy notices correspond to deliberately server-only tables.
+- Pending: server key, real owner account/sign-in, authenticated storage requests and hosted Worker cutover. Local/mocked auth tests do not claim a real owner login succeeded.
