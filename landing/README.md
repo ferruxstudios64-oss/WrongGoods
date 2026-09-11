@@ -2,6 +2,10 @@
 
 This standalone landing corrects the old business model on the live domain while the full storefront's Supabase setup is pending. It uses the existing approved D1 database for real release-list persistence. No checkout or free-file promise is presented. Original DAYSHIFT imagery is explicitly labelled AI concept artwork.
 
+## Live deployment
+
+Approved and published on 11 September 2026 at https://wronggoods.com and https://www.wronggoods.com. Worker version: `cb42e511-a698-4f72-9707-414c92556282`. Both domains serve the new page; live HTTP checks and an independently verified browser signup passed. The synthetic signup was removed afterward.
+
 ## Review
 
 Preview: https://wronggoods-landing-preview.64v2swksgt.workers.dev

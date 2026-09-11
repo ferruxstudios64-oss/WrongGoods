@@ -6,7 +6,7 @@ React + TypeScript, Next-compatible Vinext and Cloudflare Workers. The recovered
 
 ## Priority: corrected live-domain landing
 
-The replacement prelaunch landing is ready at **https://wronggoods-landing-preview.64v2swksgt.workers.dev**. It explains the fictional-brand model and saves release signups to the approved D1 database. The live `wronggoods.com` Worker has not been replaced; the original brief requires review and approval first. See [landing deployment and verification](landing/README.md).
+The approved prelaunch landing is live at **https://wronggoods.com** and **https://www.wronggoods.com**. It explains the fictional-brand model and saves release signups to the approved D1 database. The separate review copy remains at https://wronggoods-landing-preview.64v2swksgt.workers.dev. See [landing deployment and verification](landing/README.md).
 
 ## Run on Windows
 

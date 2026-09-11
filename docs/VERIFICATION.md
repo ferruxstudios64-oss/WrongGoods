@@ -58,3 +58,8 @@ Windows rebuild note: the running `pnpm start` Worker initially locked `dist`, c
 Separate review Worker: https://wronggoods-landing-preview.64v2swksgt.workers.dev, version `03999105-6e96-42bd-b788-8f4bd6357308`. Existing live Worker `wrongergoods` and both custom domains remain unchanged pending review.
 
 The candidate removes the old mockup/free-sample positioning. Browser checks at 1440, 390 and 320 px found no overflow or missing images; no JavaScript errors were reported. Essential content is immediately present without scroll-reveal code. A real hosted browser signup was independently verified in D1, then the synthetic row was precisely removed. Local persistence was separately checked. All 30 Node tests, typechecking, lint and the landing Worker bundle pass. Twelve deployed HTTP checks cover positioning, assets, privacy, noindex preview headers, invalid origins, missing consent, oversized bodies and unknown routes. See `artifacts/landing-http.json` and `artifacts/landing-*.png`.
+
+
+## Approved live landing deployment
+
+After explicit owner approval, Worker `wrongergoods` was updated to version `cb42e511-a698-4f72-9707-414c92556282` on 11 September 2026. Both existing custom domains serve the approved design. All 12 live HTTP checks pass, and www separately returns the new page with HTTP 200 and no preview noindex header. A real browser signup on wronggoods.com was independently verified in D1 and the exact synthetic record removed. No R2 or paid-plan activation was performed. Supabase setup remains separate and pending its local credentials/account steps.
