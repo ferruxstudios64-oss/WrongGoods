@@ -52,3 +52,9 @@ Windows rebuild note: the running `pnpm start` Worker initially locked `dist`, c
 - D1 read-only check found zero products, messages, signups and orders; retained resource is not deleted.
 - Supabase security advisor: no warning/error findings; eight informational RLS-without-policy notices correspond to deliberately server-only tables.
 - Pending: server key, real owner account/sign-in, authenticated storage requests and hosted Worker cutover. Local/mocked auth tests do not claim a real owner login succeeded.
+
+## Priority landing replacement
+
+Separate review Worker: https://wronggoods-landing-preview.64v2swksgt.workers.dev, version `03999105-6e96-42bd-b788-8f4bd6357308`. Existing live Worker `wrongergoods` and both custom domains remain unchanged pending review.
+
+The candidate removes the old mockup/free-sample positioning. Browser checks at 1440, 390 and 320 px found no overflow or missing images; no JavaScript errors were reported. Essential content is immediately present without scroll-reveal code. A real hosted browser signup was independently verified in D1, then the synthetic row was precisely removed. Local persistence was separately checked. All 30 Node tests, typechecking, lint and the landing Worker bundle pass. Twelve deployed HTTP checks cover positioning, assets, privacy, noindex preview headers, invalid origins, missing consent, oversized bodies and unknown routes. See `artifacts/landing-http.json` and `artifacts/landing-*.png`.

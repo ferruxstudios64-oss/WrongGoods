@@ -4,6 +4,10 @@ An independent label for original fictional brands, packaging, signage and graph
 
 React + TypeScript, Next-compatible Vinext and Cloudflare Workers. The recovered starting commit is `e249dcd42487e02be38befeaf545dd487b482a01`. The pinned pnpm lockfile and working stack are retained.
 
+## Priority: corrected live-domain landing
+
+The replacement prelaunch landing is ready at **https://wronggoods-landing-preview.64v2swksgt.workers.dev**. It explains the fictional-brand model and saves release signups to the approved D1 database. The live `wronggoods.com` Worker has not been replaced; the original brief requires review and approval first. See [landing deployment and verification](landing/README.md).
+
 ## Run on Windows
 
 Use Node 24 (verified) or Node 22.13+, and pnpm. The project selects `pnpm@11.19.0` through `packageManager`.

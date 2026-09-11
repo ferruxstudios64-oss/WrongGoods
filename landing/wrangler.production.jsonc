@@ -1,0 +1,15 @@
+{
+  // Review the separate preview and obtain live-replacement approval before deploying.
+  "name": "wrongergoods",
+  "main": "worker.ts",
+  "compatibility_date": "2026-05-15",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {"pattern":"wronggoods.com","custom_domain":true},
+    {"pattern":"www.wronggoods.com","custom_domain":true}
+  ],
+  "assets": {"directory":"./public","binding":"ASSETS","run_worker_first":true},
+  "d1_databases": [{"binding":"DB","database_name":"wronggoods-preview","database_id":"d85bce0e-d804-43a3-bcb8-e7293b4c3135","migrations_dir":"../migrations"}],
+  "observability": {"enabled":false}
+}

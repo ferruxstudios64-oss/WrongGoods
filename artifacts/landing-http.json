@@ -1,0 +1,54 @@
+{
+  "origin": "https://wronggoods-landing-preview.64v2swksgt.workers.dev",
+  "checkedAt": "2026-09-11T17:01:58.489Z",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/styles.css",
+      "status": 200
+    },
+    {
+      "path": "/favicon.svg",
+      "status": 200
+    },
+    {
+      "path": "/assets/dayshift.webp",
+      "status": 200
+    },
+    {
+      "path": "/privacy.html",
+      "status": 200
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200
+    },
+    {
+      "path": "/app.js",
+      "status": 200
+    },
+    {
+      "path": "/api/signup",
+      "status": 405
+    },
+    {
+      "path": "/api/unknown",
+      "status": 404
+    },
+    {
+      "path": "/api/signup",
+      "status": 403
+    },
+    {
+      "path": "/api/signup",
+      "status": 400
+    },
+    {
+      "path": "/api/signup",
+      "status": 413
+    }
+  ]
+}
