@@ -1,33 +1,52 @@
 # WrongGoods
 
-WrongGoods storefront for fictional brands and graphic props for games and screen. Built with React, Next-compatible Vinext, TypeScript and Cloudflare Workers.
+An independent label for original fictional brands, packaging, signage and graphic props for games, film and invented worlds.
 
-## Local development
+React + TypeScript, Next-compatible Vinext and Cloudflare Workers. The recovered starting commit is `e249dcd42487e02be38befeaf545dd487b482a01`. The pinned pnpm lockfile and working stack are retained.
 
-Use Node 22.13+ and the package manager pinned in package.json. Install with `pnpm install --frozen-lockfile`, then `pnpm dev`. Run `pnpm build` for the production Worker and `pnpm start` to preview it. `pnpm exec tsc --noEmit` checks types.
+## Run on Windows
 
-## Catalogue and release workflow
+Use Node 24 (verified) or Node 22.13+, and pnpm. The project selects `pnpm@11.19.0` through `packageManager`.
 
-`lib/catalog.ts` is the source of truth. The three initial collections are **concepts in development**, not downloadable products. DAYSHIFT imagery is an AI-generated concept preview, not a representation of a final delivered asset pack. Product pages distinguish planned contents from confirmed specifications.
+```powershell
+cd C:\Users\User\Desktop\WG\storefront
+pnpm install --frozen-lockfile
+pnpm db:migrate:local
+pnpm dev
+```
 
-To release a product:
+Development: **http://localhost:5173**. Use the explicit address and port. Leave the process running. A clean first start can spend about a minute preparing dependencies. Local D1 and R2 state lives in ignored `.wrangler/state`; this does not create cloud resources or charges.
 
-1. Finish and QA the downloadable archive, actual file formats, included fonts and commercial-use rights.
-2. Publish the exact licence, seller details, refund/cancellation terms and updated privacy notice. Obtain any necessary legal review for the intended selling markets.
-3. Set up hosted checkout and secure file delivery with the chosen merchant provider. Verify the complete paid order, delivery and refund flow in its test environment.
-4. Set the verified HTTPS checkout URL, confirmed GBP price, final contents and formats, and `status: 'available'` in the catalogue. Keep all provider secrets in deployment settings, never source control.
-5. Test one genuine end-to-end release before enabling sales. Checkout validates availability server-side and only redirects to the explicit provider allowlist. Client-supplied prices and URLs are never accepted.
+```powershell
+pnpm typecheck
+pnpm test
+pnpm lint
+pnpm build
+pnpm start
+```
 
-The current allowlist supports Stripe Payment Links and `wronggoods.lemonsqueezy.com`; it is intentionally narrow. Stripe links alone do not deliver files: configure fulfilment before publishing any product. Tax display and charged amount must match the final provider listing. There is no shopping cart, customer login, upload wizard or mailing-list backend yet; the current contact action truthfully opens an email draft.
+Production preview: **http://127.0.0.1:8787**. The pinned Worker binary uses compatibility date `2026-05-15`; do not set a date newer than its supported runtime. Normal install/dev/build/test commands need no Bash. The legacy managed-Linux scripts remain available for that environment.
 
-## Deployment
+On Windows, stop `pnpm start` with Ctrl+C before rebuilding: its running Worker can hold a lock on `dist` and cause `EPERM`. Restart it after the build. `pnpm dev` may remain running.
 
-Build using the pinned lockfile. Deploy the generated `dist/server/wrangler.json` through Cloudflare Wrangler with credentials configured in the hosting environment. Set up the domain and HTTPS in the provider dashboard. This repository commit does not deploy or change domain DNS.
+## Implemented workflows
 
-## Brand sources
+- Server-backed published catalogue, original concept previews, search, department/tone filters, product galleries, precise release information and useful empty states.
+- Owner wizard at `/owner`: private drafts, validated image and ZIP uploads, preview, explicit publication, archival and revision-conflict protection. Cloudflare Access signatures and the owner email allowlist are verified on the server.
+- Contact form, persisted launch-update consent and private owner inbox/subscriber removal at `/owner/inbox`. No automated marketing sender is configured.
+- Lemon Squeezy hosted checkout integration, signed and idempotent order/refund webhooks, browser-bound verified status, and provider-managed customer download/recovery. Test mode is the default.
+- Private R2 review archives and draft images; only images currently referenced by published products have public image routes. Private archive routes never provide paid files directly.
 
-Palette: #0A0A0A, #F0EDE6, #D9DE21 from the supplied 2026 manual. Header wordmark is extracted as vector paths from page 9 of that manual, not retyped. The later approved offset-inner-O master is absent from the supplied assets: replace `public/brand/wordmark.svg` when that approved vector is supplied; do not invent its ratio. Display headings use self-hosted Anton under its bundled SIL Open Font License; body and editorial roles use system fallbacks. Product positioning follows the later fictional-brand direction over older mockup-marketplace copy.
+The private review ZIP must also be uploaded to the matching Lemon Squeezy variant. Its API does not provide product-file upload. Publication checks the provider store, variant, payment mode, fixed GBP price and matching published download filename, plus the owner's explicit confirmation of matching content. This is a documented two-service release step, not automatic archive synchronisation.
 
-## Security
+## Current preview and limits
 
-`.env*`, private keys, runtime state and build output are ignored. No credentials are required for catalogue browsing. No analytics, customer data storage or marketing forms are enabled. Hosted checkout does not expose merchant secrets. See `docs/LAUNCH.md` for remaining launch requirements.
+Cloud preview: **https://wronggoods-preview.64v2swksgt.workers.dev**. It is a separate Worker with no custom-domain routes, live payments disabled, and no cloud database or R2 binding. Contact/signup correctly report unavailable on that preview; they persist successfully in the local database. Owner access is locked until Access is configured. No real product has been released.
+
+See [deployment setup](docs/DEPLOYMENT.md), [owner guide](docs/OWNER.md), [launch dependencies](docs/LAUNCH.md), [security/commerce design](docs/ARCHITECTURE.md), and [verification evidence](docs/VERIFICATION.md).
+
+## Brand and product honesty
+
+DAYSHIFT, PUBLIC NOTICE and FALSE AUTHORITY are concept previews, not completed archives. DAYSHIFT imagery is AI-generated art direction. The separate `references` folder/PDF and the later approved offset-O master were absent from this handover. The existing wordmark is the earlier PDF extraction; it is not claimed as the approved final mark. Replace it only when the exact master or documented construction is supplied. Anton's licence is included in `public/fonts`.
+
+Do not commit credentials, `.env*`, `.dev.vars*`, archives, authentication state, local databases, dependencies or build output. Environment variable **names** are documented in Markdown; no environment example is committed.

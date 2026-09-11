@@ -1,0 +1,123 @@
+{
+  "origin": "http://127.0.0.1:8787",
+  "checkedAt": "2026-09-11T08:30:59.641Z",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 29212,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/goods/dayshift",
+      "status": 200,
+      "bytes": 18888,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/goods/public-notice",
+      "status": 200,
+      "bytes": 18692,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/goods/false-authority",
+      "status": 200,
+      "bytes": 18609,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "bytes": 13742,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/licence",
+      "status": 200,
+      "bytes": 14323,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "bytes": 16247,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "bytes": 13649,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/owner",
+      "status": 200,
+      "bytes": 13422,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/owner/inbox",
+      "status": 200,
+      "bytes": 13141,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/order",
+      "status": 200,
+      "bytes": 13518,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/order?status=cancelled",
+      "status": 200,
+      "bytes": 13540,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/does-not-exist",
+      "status": 404,
+      "bytes": 7858,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "bytes": 573,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "bytes": 118,
+      "robots": "noindex, nofollow"
+    },
+    {
+      "path": "/api/owner/products",
+      "status": 503
+    },
+    {
+      "path": "/api/owner/inbox",
+      "status": 503
+    },
+    {
+      "path": "/api/owner/media/unknown",
+      "status": 503
+    },
+    {
+      "path": "/api/media/unknown",
+      "status": 404
+    },
+    {
+      "path": "/api/downloads/private.zip",
+      "status": 401
+    },
+    {
+      "path": "/api/orders/status?status=paid",
+      "status": 401
+    }
+  ],
+  "forgedCheckout": 403,
+  "conceptCheckout": 409,
+  "recovery": "https://app.lemonsqueezy.com/my-orders"
+}

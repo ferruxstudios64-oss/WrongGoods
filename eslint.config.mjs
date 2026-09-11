@@ -11,8 +11,19 @@ const eslintConfig = defineConfig([
     ".next/**",
     "out/**",
     "build/**",
+    ".sites-runtime/**",
+    ".wrangler/**",
+    "dist/**",
     "next-env.d.ts",
   ]),
+  {
+    files: ["app/page.tsx", "components/store.tsx", "components/owner-studio.tsx"],
+    rules: {
+      // Intentional native images: self-hosted concept WebP and authenticated R2
+      // previews must not be fetched/cached by an image-optimization proxy.
+      "@next/next/no-img-element": "off",
+    },
+  },
   {
     files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
     rules: {

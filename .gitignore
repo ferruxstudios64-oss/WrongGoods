@@ -49,3 +49,11 @@ next-env.d.ts
 *.key
 *.p12
 *.pfx
+.dev.vars*
+/artifacts/auth*
+/artifacts/*state*.json
+*.zip
+*.7z
+*.rar
+/test-results/
+/playwright-report/

@@ -14,22 +14,25 @@ const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 const managedLinux = readExecutionProfile() === "managed-linux";
 
 const localBindingConfig = {
+  name: "wronggoods-storefront",
   main: "vinext/server/fetch-handler",
+  compatibility_date: "2026-05-15",
   compatibility_flags: ["nodejs_compat"],
-  d1_databases: d1
+  d1_databases: (d1 || !managedLinux)
     ? [
         {
-          binding: d1,
-          database_name: "site-creator-d1",
+          binding: d1 || "DB",
+          database_name: "wronggoods",
           database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
+          migrations_dir: "migrations",
         },
       ]
     : [],
-  r2_buckets: r2
+  r2_buckets: (r2 || !managedLinux)
     ? [
         {
-          binding: r2,
-          bucket_name: "site-creator-r2",
+          binding: r2 || "BUCKET",
+          bucket_name: "wronggoods-private",
         },
       ]
     : [],
@@ -57,7 +60,7 @@ export default defineConfig(async () => {
     },
     plugins: [
       vinext(),
-      sites({ mockAuth: !managedLinux }),
+      sites({ mockAuth: false }),
       cloudflare({
         viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
         inspectorPort: false,

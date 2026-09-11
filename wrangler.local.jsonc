@@ -1,0 +1,12 @@
+// Local emulation only. Never deploy the placeholder database ID.
+{
+  "name": "wronggoods-storefront",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [{
+    "binding": "DB", "database_name": "wronggoods",
+    "database_id": "00000000-0000-4000-8000-000000000000",
+    "migrations_dir": "migrations"
+  }],
+  "r2_buckets": [{"binding": "BUCKET", "bucket_name": "wronggoods-private"}]
+}

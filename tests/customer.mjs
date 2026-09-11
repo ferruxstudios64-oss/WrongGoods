@@ -1,0 +1,20 @@
+import {test, after} from 'node:test';
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import {readFileSync,mkdtempSync,writeFileSync,rmSync} from 'node:fs';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {pathToFileURL} from 'node:url';
+import ts from 'typescript';
+const dir=mkdtempSync(join(tmpdir(),'wg-customer-'));
+writeFileSync(join(dir,'customer.mjs'),ts.transpileModule(readFileSync('lib/customer.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ES2022,target:ts.ScriptTarget.ES2022}}).outputText);
+const {saveSignup,saveContact,readCustomerRequest,throttle}=await import(pathToFileURL(join(dir,'customer.mjs')));
+const sql=new DatabaseSync(':memory:');sql.exec(readFileSync('migrations/0002_customer.sql','utf8'));
+function statement(query,args=[]) {return {bind(...values){return statement(query,values)},async run(){return {success:true,meta:sql.prepare(query).run(...args)}},async first(){return sql.prepare(query).get(...args)||null}};}
+const db={prepare:statement};
+test('signup requires explicit consent, persists it and does not duplicate an address',async()=>{await assert.rejects(saveSignup(db,{email:'reader@example.test',consent:false}));await assert.rejects(saveSignup(db,{email:'invalid',consent:true}));await saveSignup(db,{email:'Reader@example.test',consent:true});await saveSignup(db,{email:'reader@example.test',consent:true});const rows=sql.prepare('SELECT * FROM launch_signups').all();assert.equal(rows.length,1);assert.match(rows[0].consent_text,/agree/);assert.ok(rows[0].created_at);});
+test('storage failure cannot report signup or contact success',async()=>{const broken={prepare:()=>({bind(){return this},async run(){return {success:false}}})};await assert.rejects(saveSignup(broken,{email:'a@example.test',consent:true}),/not saved/);await assert.rejects(saveContact(broken,{name:'Test',email:'a@example.test',message:'A test contact enquiry.'}),/not saved/);});
+test('contact validates and stores the exact enquiry safely',async()=>{await assert.rejects(saveContact(db,{name:'Test',email:'a@example.test',message:'short'}));await saveContact(db,{name:'Test',email:'a@example.test',message:"A customer's <script>test</script> enquiry."});assert.equal(sql.prepare('SELECT count(*) n FROM contact_messages').get().n,1);});
+test('public form requests reject forged origins, malformed bodies and honeypots',async()=>{const request=(body,origin='https://wronggoods.com')=>new Request('https://wronggoods.com/api/signup',{method:'POST',headers:{origin,'Content-Type':'application/json'},body});await assert.rejects(readCustomerRequest(request('{}','https://evil.test')));await assert.rejects(readCustomerRequest(request('null')));await assert.rejects(readCustomerRequest(request('{')));await assert.rejects(readCustomerRequest(request('{"website":"spam"}')));});
+test('persistent rate limits reject overflow without storing raw addresses',async()=>{await throttle(db,'192.0.2.5',2);await throttle(db,'192.0.2.5',2);await assert.rejects(throttle(db,'192.0.2.5',2),/Too many/);const row=sql.prepare('SELECT key,count FROM request_limits').get();assert.match(row.key,/^[a-f0-9]{64}$/);assert.equal(row.count,3);});
+after(()=>{sql.close();rmSync(dir,{recursive:true,force:true});});

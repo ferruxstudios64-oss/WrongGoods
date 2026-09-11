@@ -1,4 +1,4 @@
-export type Product = {slug:string; code:string; name:string; category:string; tone:'Straight-faced'|'Satirical'; description:string; contents:string[]; formats:string[]; status:'in-development'|'available'; priceGBP:number|null; checkoutUrl:string|null; image:string};
+export type Product = {slug:string; code:string; name:string; category:string; tone:'Straight-faced'|'Satirical'; description:string; contents:string[]; formats:string[]; status:'in-development'|'available'; priceGBP:number|null; checkoutUrl:string|null; image:string; images?:string[]; compatibility?:string; licence?:string; providerReady?:boolean};
 // Publish only after the downloadable files, licence and hosted checkout have been verified.
 export const products:Product[] = [
  {slug:'dayshift',code:'WG-BR-001',name:'DAYSHIFT',category:'Fictional brands',tone:'Straight-faced',description:'An everyday coffee brand for worlds that need to feel lived in. Takeaway packaging, signage and the small details that make a fictional business believable.',contents:['Primary and secondary brand marks','Takeaway cup and bag artwork','Menu and storefront graphic direction','Colour and typography specifications'],formats:['Formats confirmed at release'],status:'in-development',priceGBP:null,checkoutUrl:null,image:'/images/dayshift.webp'},
@@ -6,4 +6,4 @@ export const products:Product[] = [
  {slug:'false-authority',code:'WG-PR-001',name:'FALSE AUTHORITY',category:'Props & paperwork',tone:'Straight-faced',description:'The paperwork behind an invented institution. Fictional forms, administrative details and graphic props for environmental storytelling.',contents:['Fictional institution identity','Form and document artwork','Prop usage guidance'],formats:['Formats confirmed at release'],status:'in-development',priceGBP:null,checkoutUrl:null,image:''}
 ];
 export const categories=['All goods','Fictional brands','Signs & graphics','Props & paperwork'];
-export function purchasable(p:Product){if(p.status!=='available'||!p.priceGBP||!p.checkoutUrl)return false;try{const u=new URL(p.checkoutUrl);return u.protocol==='https:'&&['buy.stripe.com','wronggoods.lemonsqueezy.com'].includes(u.hostname)}catch{return false}}
+export function purchasable(p:Product){return p.status==='available' && typeof p.priceGBP==='number' && Number.isFinite(p.priceGBP) && p.priceGBP>0 && p.providerReady===true;}
