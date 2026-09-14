@@ -6,9 +6,7 @@ export async function POST(req: NextRequest) {
     try {
         const payload = await req.text();
         const signature = req.headers.get('stripe-signature') || '';
-
-        const result = await processStripeWebhook(payload, signature);
-
+        await processStripeWebhook(payload, signature);
         return NextResponse.json({ received: true }, { status: 200 });
     } catch (err: any) {
         console.error('[STRIPE_WEBHOOK_ERROR]', err.message);
