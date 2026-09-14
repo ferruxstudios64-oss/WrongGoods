@@ -1,6 +1,5 @@
-
 import Stripe from 'stripe';
-import { setting } from '@/lib/settings';
+import { setting } from '@/lib/server/env';
 import { randomUUID } from 'crypto';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

@@ -1,8 +1,7 @@
-
 import { NextRequest, NextResponse } from 'next/server';
 import { createStripeCheckoutSession } from '@/lib/server/stripe';
-import { getPublished } from '@/lib/catalog';
-import { setting } from '@/lib/settings';
+import { getPublished } from '@/lib/server/catalog';
+import { setting } from '@/lib/server/env';
 
 export async function POST(req: NextRequest) {
   if (process.env.STRIPE_SANDBOX_ENABLED !== 'true') {
@@ -22,7 +21,7 @@ export async function POST(req: NextRequest) {
     }
     const { slug } = JSON.parse(bodyText);
 
-    const product = getPublished(slug);
+    const product = await getPublished(slug);
     if (!product) {
       return NextResponse.json({ error: 'Product not available' }, { status: 404 });
     }
