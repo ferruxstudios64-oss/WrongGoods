@@ -7,6 +7,6 @@ export async function POST(request: Request) {
     await throttle(db, `contact:${request.headers.get('cf-connecting-ip') || 'local'}`, 5);
     return Response.json(await saveContact(db, body), {headers: {'Cache-Control':'no-store'}});
   } catch (error) {
-    return Response.json({error: error instanceof CustomerError ? error.message : 'Your enquiry was not saved. Please email tawseen@wronggoods.com.'}, {status: error instanceof CustomerError ? error.status : 503, headers: {'Cache-Control':'no-store'}});
+    return Response.json({error: error instanceof CustomerError ? error.message : 'Your enquiry was not saved. Please email hello@wronggoods.com.'}, {status: error instanceof CustomerError ? error.status : 503, headers: {'Cache-Control':'no-store'}});
   }
 }
