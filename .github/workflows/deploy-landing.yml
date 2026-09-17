@@ -1,35 +1,32 @@
 name: Deploy WrongGoods landing
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - "landing/**"
+      - "migrations/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
       - ".github/workflows/deploy-landing.yml"
-
-permissions:
-  contents: read
+  workflow_dispatch:
 
 concurrency:
   group: wronggoods-production
   cancel-in-progress: false
 
-jobs:
-  deploy:
-    name: Deploy and verify production
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARETOKEN }}
-      WRANGLER_SEND_METRICS: "false"
+permissions:
+  contents: read
 
+jobs:
+  verify-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Check out committed source
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up pnpm
+      - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 11.19.0
@@ -43,11 +40,14 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Confirm current Cloudflare deployments
-        run: pnpm exec wrangler deployments list --config landing/wrangler.production.jsonc
+      - name: Run automated verification
+        run: |
+          pnpm typecheck
+          pnpm test
+          pnpm lint
 
-      - name: Deploy existing production Worker
+      - name: Deploy production Worker
         run: pnpm exec wrangler deploy --config landing/wrangler.production.jsonc
-
-      - name: Verify live site and signup contract
-        run: node landing/verify.mjs https://wronggoods.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

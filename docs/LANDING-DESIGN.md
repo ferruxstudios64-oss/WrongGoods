@@ -21,7 +21,7 @@ Refero MCP is unavailable; its bundled craft guidance supplies labelled forms, k
 | Immediate content visibility | Current scroll-reveal screenshot leaves large blank areas | Essential content is visible without JS or scroll observers |
 | Dedicated preview Worker | Original approval constraint | Keep live wrongergoods Worker and its domain bindings untouched until review |
 
-The earlier logo is not represented as the final offset-O master. The landing uses a plain typeset wordmark without an invented construction rule or trademark symbol. Exact approved master remains an asset dependency.
+The landing header uses the approved 2026 stacked WrongGoods artwork supplied in bone, with matching W/G geometry used for the favicon micro-mark. The source shapes are embedded in self-contained SVG delivery assets so the marks render independently of installed fonts.
 
 ## Deployment scope
 

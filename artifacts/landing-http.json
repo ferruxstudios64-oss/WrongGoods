@@ -1,6 +1,6 @@
 {
-  "origin": "https://wronggoods.com",
-  "checkedAt": "2026-09-11T17:08:23.615Z",
+  "origin": "http://127.0.0.1:8790",
+  "checkedAt": "2026-09-17T18:24:03.263Z",
   "checks": [
     {
       "path": "/",
@@ -11,11 +11,11 @@
       "status": 200
     },
     {
-      "path": "/app.js",
+      "path": "/assets/dayshift.webp",
       "status": 200
     },
     {
-      "path": "/favicon.svg",
+      "path": "/app.js",
       "status": 200
     },
     {
@@ -23,7 +23,11 @@
       "status": 200
     },
     {
-      "path": "/assets/dayshift.webp",
+      "path": "/assets/wronggoods-wordmark.svg",
+      "status": 200
+    },
+    {
+      "path": "/favicon.svg",
       "status": 200
     },
     {

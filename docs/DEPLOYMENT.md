@@ -37,3 +37,13 @@ Use `pnpm exec wrangler login` and complete the browser flow while its terminal 
 | `COMMERCE_LIVE_ENABLED` | Exactly `true` allows live mode; preview is `false` |
 
 The legacy `DB`, `BUCKET`, `CF_ACCESS_ISSUER` and `CF_ACCESS_AUD` are supported for offline fixtures and the earlier deployment only. Supabase mode does not fall back to D1 or Access if its requests fail. Production domain changes and a live trading launch remain separate approvals.
+# Permanent GitHub-to-Cloudflare deployment
+
+The production landing deploys automatically after verified changes to `main` that affect the landing, migrations, package lock, or deployment workflow. The workflow is `.github/workflows/deploy-landing.yml` and retains the existing `landing/wrangler.production.jsonc` Worker, routes, D1 binding, and custom domains.
+
+Configure these encrypted GitHub Actions repository secrets once:
+
+- `CLOUDFLARE_API_TOKEN`: a scoped Cloudflare API token with Workers Scripts edit access, D1 edit access, and the minimum zone permissions needed for the existing `wronggoods.com` Worker routes.
+- `CLOUDFLARE_ACCOUNT_ID`: the Cloudflare account ID that owns the Worker and D1 database.
+
+Do not store either value in the repository, issues, workflow logs, or chat. Future deployments require no local Wrangler login: commit the verified change to `main`, then monitor the `Deploy WrongGoods landing` action. A failed verification step blocks production deployment.
