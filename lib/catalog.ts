@@ -21,7 +21,7 @@ export const products:Product[] = [
     status:'in-development',
     priceGBP:null,
     checkoutUrl:null,
-    image:'/images/dayshift.webp'
+    image:''
   }
 ];
 
