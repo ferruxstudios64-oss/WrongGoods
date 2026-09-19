@@ -1,5 +1,5 @@
 {
   "release": "prelaunch-private-storefront",
-  "revision": 3,
-  "note": "Deploy educational public prelaunch, private admin storefront, DAYSHIFT world study and passwordless admin access."
+  "revision": 4,
+  "note": "Retry production deploy after updating auth regression tests for the passwordless admin path."
 }
