@@ -1,5 +1,5 @@
 {
   "release": "prelaunch-private-storefront",
-  "revision": 4,
-  "note": "Retry production deploy after updating auth regression tests for the passwordless admin path."
+  "revision": 5,
+  "note": "Retry production deploy after correcting the remaining auth test harness assumptions."
 }

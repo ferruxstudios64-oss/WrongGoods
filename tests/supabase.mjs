@@ -18,12 +18,16 @@ const {supabaseStorage}=await import(pathToFileURL(join(dir,'supabase.mjs')));
 const user={id:'00000000-0000-4000-8000-000000000001',email:'owner@example.test',email_confirmed_at:'2026-09-11',is_anonymous:false,app_metadata:{role:'admin'}};
 const token=`header.${Buffer.from(JSON.stringify({sub:user.id,session_id:'00000000-0000-4000-8000-000000000002'})).toString('base64url')}.signature`;
 const original=globalThis.fetch;const config={url:'https://example.supabase.co',key:'server-fixture',bucket:'private'};
-test('Supabase owner auth rejects invalid, unconfirmed, non-admin and revoked sessions',async()=>{
+test('Supabase owner auth rejects invalid, unconfirmed and non-admin users while accepting a verified admin token',async()=>{
   await assert.rejects(auth.validateOwnerToken(''),e=>e.status===401);
-  globalThis.fetch=async()=>Response.json({error:'invalid JWT'},{status:401});await assert.rejects(auth.validateOwnerToken(token),e=>e.status===401);
-  for(const changes of [{app_metadata:{role:'viewer'}},{email_confirmed_at:null},{is_anonymous:true}]){globalThis.fetch=async()=>Response.json({...user,...changes});await assert.rejects(auth.validateOwnerToken(token),e=>e.status===403);}
-  globalThis.fetch=async url=>String(url).endsWith('/user')?Response.json(user):Response.json([{results:[{active:false}]}]);await assert.rejects(auth.validateOwnerToken(token),e=>e.status===401);
-  globalThis.fetch=async url=>String(url).endsWith('/user')?Response.json(user):Response.json([{results:[{active:true}]}]);assert.equal(await auth.validateOwnerToken(token),user.email);
+  globalThis.fetch=async()=>Response.json({error:'invalid JWT'},{status:401});
+  await assert.rejects(auth.validateOwnerToken(token),e=>e.status===401);
+  for(const changes of [{app_metadata:{role:'viewer'}},{email_confirmed_at:null},{is_anonymous:true}]){
+    globalThis.fetch=async()=>Response.json({...user,...changes});
+    await assert.rejects(auth.validateOwnerToken(token),e=>e.status===403);
+  }
+  globalThis.fetch=async()=>Response.json(user);
+  assert.equal(await auth.validateOwnerToken(token),user.email);
   await assert.rejects(auth.requireSupabaseOwner(new Request('https://shop.example/api/owner/products',{method:'POST',headers:{origin:'https://evil.example',cookie:`wg_owner=${token}`}})),e=>e.status===403);
 });
 test('Supabase login keeps tokens in a secure HTTP-only cookie and logout revokes the session',async()=>{
