@@ -10,15 +10,15 @@ export function Header(){return <>
   <header className="header">
     <Link className="brand-link" href="/" aria-label="WrongGoods home"><img className="logo" src="/brand/wronggoods-wordmark-bone.svg" alt="WrongGoods" width="240" height="75"/></Link>
     <nav aria-label="Main navigation"><Link href="/about">The label</Link><Link href="/#upcoming">What’s coming</Link><Link href="/#audience">For who</Link><Link href="/contact">Contact</Link></nav>
-    <Link className="order-link" href="/owner">Owner access</Link>
-    <Sheet><SheetTrigger className="mobile-menu" aria-label="Open menu"><Menu/></SheetTrigger><SheetContent className="!bg-[#0c0c0c] !text-[#eae7da] !border-[#34342f] p-7"><SheetTitle className="!text-[#eae7da]">WrongGoods</SheetTitle><nav className="flex flex-col gap-6 pt-6 text-lg">{[['Goods','/goods'],['The label','/about'],['Licensing','/licence'],['Contact','/contact'],['Orders & downloads','/order']].map(([text,href])=><SheetClose asChild key={href}><Link href={href}>{text}</Link></SheetClose>)}</nav></SheetContent></Sheet>
+    <span className="order-link" aria-hidden="true">PRE-LAUNCH</span>
+    <Sheet><SheetTrigger className="mobile-menu" aria-label="Open menu"><Menu/></SheetTrigger><SheetContent className="!bg-[#0c0c0c] !text-[#eae7da] !border-[#34342f] p-7"><SheetTitle className="!text-[#eae7da]">WrongGoods</SheetTitle><nav className="flex flex-col gap-6 pt-6 text-lg">{[['The label','/about'],['What’s coming','/#upcoming'],['For who','/#audience'],['Licensing','/licence'],['Contact','/contact']].map(([text,href])=><SheetClose asChild key={href}><Link href={href}>{text}</Link></SheetClose>)}</nav></SheetContent></Sheet>
   </header>
 </>}
 
 export function Footer(){return <footer>
   <div className="footer-mark"><img src="/brand/wg-mark-yellow.svg" alt="" aria-hidden="true"/><p>THE WRONG GOODS.<br/><em>IN THE RIGHT HANDS.</em></p></div>
   <div className="footer-wordmark"><img src="/brand/wronggoods-wordmark-bone.svg" alt="WrongGoods"/></div>
-  <div className="footer-bottom"><span>© {new Date().getFullYear()} WRONGGOODS</span><Link href="/goods">Goods</Link><Link href="/licence">Licensing</Link><Link href="/terms">Terms</Link><Link href="/refunds">Refunds</Link><Link href="/privacy">Privacy</Link><Link href="/order">Orders</Link><a href="https://www.instagram.com/wronggoodsco/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div>
+  <div className="footer-bottom"><span>© {new Date().getFullYear()} WRONGGOODS</span><Link href="/about">The label</Link><Link href="/licence">Licensing</Link><Link href="/terms">Terms</Link><Link href="/refunds">Refunds</Link><Link href="/privacy">Privacy</Link><Link href="/contact">Contact</Link><a href="https://www.instagram.com/wronggoodsco/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div>
 </footer>}
 
 export function Catalogue({products,unavailable=false}:{products:Product[];unavailable?:boolean}) {
