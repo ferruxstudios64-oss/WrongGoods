@@ -2,7 +2,7 @@ import {notFound} from 'next/navigation';
 import Link from 'next/link';
 import {ArrowUpRight} from 'lucide-react';
 import {storefrontCatalogue} from '@/lib/storefront';
-import {Gallery, Purchase} from '@/components/store';
+import {Gallery, Purchase} from '@/app/storefront-ui';
 
 export const dynamic = 'force-dynamic';
 
