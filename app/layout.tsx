@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Header, Footer } from '@/components/store';
+import { Header, Footer } from '@/app/storefront-ui';
 
 export const metadata:Metadata={
   metadataBase:new URL('https://wronggoods.com'),

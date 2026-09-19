@@ -1,4 +1,4 @@
-import {Catalogue} from '@/components/store';
+import {Catalogue} from '@/app/storefront-ui';
 import {storefrontCatalogue} from '@/lib/storefront';
 export const metadata={title:'Goods'};
 export const dynamic='force-dynamic';

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import {ArrowUpRight} from 'lucide-react';
-import {Catalogue} from '@/components/store';
+import {Catalogue} from '@/app/storefront-ui';
 import {LaunchSignup} from '@/components/customer-forms';
 import {storefrontCatalogue} from '@/lib/storefront';
 
