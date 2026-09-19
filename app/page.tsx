@@ -35,13 +35,13 @@ export default async function Home(){
     </section>
 
     <section className="home-statement">
-      <div><p className="eyebrow">THE DETAILS DO THE WORLD BUILDING.</p><h2>IT DOESN'T EXIST.<br/><em>It should feel like it does.</em></h2></div>
+      <div><p className="eyebrow">THE DETAILS DO THE WORLD BUILDING.</p><h2>IT DOESN’T EXIST.<br/><em>It should feel like it does.</em></h2></div>
       <div className="statement-copy">
         <p className="statement-lead">The shop in the background. The receipt nobody reads. The notice on the staff-room door.</p>
         <p>WrongGoods creates the complete visual systems around fictional places, products and institutions. Each release is designed to work as a world, then packaged so production teams can actually use it.</p>
         <div className="tone-pair">
           <article><span>01 / STRAIGHT-FACED</span><h3>It could exist.</h3><p>Convincing enough to pass without explanation.</p></article>
-          <article><span>02 / SATIRICAL</span><h3>It probably shouldn't.</h3><p>Dry enough that the second look earns it.</p></article>
+          <article><span>02 / SATIRICAL</span><h3>It probably shouldn’t.</h3><p>Dry enough that the second look earns it.</p></article>
         </div>
       </div>
     </section>
@@ -60,7 +60,7 @@ export default async function Home(){
     <LaunchSignup/>
 
     <section className="contact-strip">
-      <div><span className="eyebrow">DIRECT LINE / NO HOLD MUSIC</span><h2>BUILDING SOMETHING<br/>THAT DOESN'T EXIST?</h2></div>
+      <div><span className="eyebrow">DIRECT LINE / NO HOLD MUSIC</span><h2>BUILDING SOMETHING<br/>THAT DOESN’T EXIST?</h2></div>
       <Link className="button dark" href="/contact">Tell us about it <ArrowUpRight size={18}/></Link>
     </section>
   </main>
