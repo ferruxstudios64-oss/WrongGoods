@@ -9,6 +9,7 @@ import { pathToFileURL } from 'node:url';
 const dir = mkdtempSync(join(tmpdir(), 'wg-owner-'));
 const compile = s => ts.transpileModule(s, { compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022 } }).outputText;
 writeFileSync(join(dir, 'env.mjs'), 'export const setting=()=>""; export const database=()=>{throw Error("no DB")};');
+writeFileSync(join(dir, 'supabase-auth.mjs'), 'export const hasSupabaseOwnerAuth=()=>false; export const requireSupabaseOwner=async()=>{throw Error("unexpected supabase auth")};');
 for (const name of ['auth','catalog','uploads']) writeFileSync(join(dir, `${name}.mjs`), compile(readFileSync(`lib/server/${name}.ts`, 'utf8').replaceAll("'./env'", "'./env.mjs'").replaceAll("'./auth'", "'./auth.mjs'")));
 const { verifyAccessToken, requireOwner } = await import(pathToFileURL(join(dir, 'auth.mjs')));
 const { editable, publicationErrors } = await import(pathToFileURL(join(dir, 'catalog.mjs')));

@@ -15,6 +15,7 @@ globalThis.__ownerTestBindings.DB.batch=async statements=>{sql.exec('BEGIN');try
 sql.exec('PRAGMA foreign_keys=ON');
 writeFileSync(join(dir,'env.mjs'),'export const getBindings=()=>globalThis.__ownerTestBindings;export const setting=n=>getBindings()[n]||"";export const database=()=>getBindings().DB;export const bucket=()=>getBindings().BUCKET;');
 writeFileSync(join(dir,'commerce.mjs'),'export async function verifyProviderVariant(){if(globalThis.__providerFailure)throw Error("Provider delivery missing");return {testMode:true};}');
+writeFileSync(join(dir,'supabase-auth.mjs'),'export const hasSupabaseOwnerAuth=()=>false; export const requireSupabaseOwner=async()=>{throw Error("unexpected supabase auth")};');
 const compile=(file,target)=>{let s=readFileSync(file,'utf8').replaceAll(/(['"])@\/lib\/server\/([^'"]+)\1/g,"'./$2.mjs'").replaceAll(/(['"])\.\/([^'".]+)\1/g,"'./$2.mjs'");writeFileSync(join(dir,`${target}.mjs`),ts.transpileModule(s,{compilerOptions:{module:ts.ModuleKind.ES2022,target:ts.ScriptTarget.ES2022}}).outputText);};
 for(const name of ['auth','catalog','uploads','owner','media'])compile(`lib/server/${name}.ts`,name);
 const routes={products:'app/api/owner/products/route.ts',product:'app/api/owner/products/[id]/route.ts',upload:'app/api/owner/products/[id]/upload/route.ts',publish:'app/api/owner/products/[id]/publish/route.ts',archive:'app/api/owner/products/[id]/archive/route.ts',mediaRoute:'app/api/media/[id]/route.ts',privateMedia:'app/api/owner/media/[id]/route.ts',remove:'app/api/owner/products/[id]/assets/[assetId]/route.ts'};
