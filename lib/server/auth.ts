@@ -21,6 +21,7 @@ export async function verifyAccessToken(token: string, issuer: string, audience:
   } catch (error) { if (error instanceof HttpError) throw error; throw new HttpError(401, 'Sign in through the owner access gateway.'); }
 }
 export async function requireOwner(request: Request): Promise<string> {
+  if(setting('OWNER_MAGIC_LINK_ENABLED')==='true') return (await import('./admin-auth')).requireAdmin(request);
   const supabaseAuth=await import('./supabase-auth');
   if (supabaseAuth.hasSupabaseOwnerAuth()) return supabaseAuth.requireSupabaseOwner(request);
   const issuer = setting('CF_ACCESS_ISSUER').replace(/\/$/, ''); const audience = setting('CF_ACCESS_AUD');
