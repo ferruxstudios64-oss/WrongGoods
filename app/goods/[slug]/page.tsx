@@ -58,7 +58,7 @@ export default async function ProductPage({params}:{params:Promise<{slug:string}
     </section>
 
     <section className="product-end">
-      <div><p className="eyebrow">USAGE / LICENSING</p><h2>USE THE WORLD.<br/>DON'T RESELL THE WORLD.</h2></div>
+      <div><p className="eyebrow">USAGE / LICENSING</p><h2>USE THE WORLD.<br/>DON’T RESELL THE WORLD.</h2></div>
       <div><p>Standard releases are intended for use inside creative productions. Source assets themselves are not for redistribution as another asset pack.</p><Link className="text-link" href="/licence">Read the licensing approach <ArrowUpRight size={15}/></Link></div>
     </section>
   </main>;
