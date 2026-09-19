@@ -1,5 +1,5 @@
 {
-  "release": "storefront-v1",
-  "revision": 2,
-  "note": "Retry production cutover after lint-gate fixes."
+  "release": "prelaunch-private-storefront",
+  "revision": 3,
+  "note": "Deploy educational public prelaunch, private admin storefront, DAYSHIFT world study and passwordless admin access."
 }
