@@ -8,7 +8,7 @@
   "scripts": {
     "install:ci": "pnpm install --frozen-lockfile",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/*.mjs",
+    "test": "node --test tests/*.mjs && node scripts/ci-production-build.mjs",
     "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.local.jsonc",
     "preview:prepare": "node scripts/prepare-preview.mjs",
     "dev": "node scripts/run-framework.mjs dev",
