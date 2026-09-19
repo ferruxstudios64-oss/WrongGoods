@@ -2,10 +2,14 @@ import assert from 'node:assert/strict';
 import {mkdirSync,writeFileSync} from 'node:fs';
 const origin=new URL(process.argv[2]||'http://127.0.0.1:8787').origin;
 const records=[];
-for(const path of ['/','/goods/dayshift','/goods/public-notice','/goods/false-authority','/about','/licence','/privacy','/contact','/owner','/owner/inbox','/order','/order?status=cancelled','/does-not-exist','/sitemap.xml','/robots.txt']){
-  const r=await fetch(origin+path);const text=await r.text();const expected=path==='/does-not-exist'?404:200;
+for(const path of ['/','/goods','/goods/dayshift','/about','/licence','/terms','/refunds','/privacy','/contact','/owner','/owner/inbox','/order','/order?status=cancelled','/does-not-exist','/goods/public-notice','/goods/false-authority','/sitemap.xml','/robots.txt']){
+  const r=await fetch(origin+path);const text=await r.text();
+  const expected=['/does-not-exist','/goods/public-notice','/goods/false-authority'].includes(path)?404:200;
   assert.equal(r.status,expected,`${path} HTTP status`);
-  if(r.headers.get('content-type')?.includes('text/html')){assert.ok(text.includes('WrongGoods'),`${path} body`);assert.ok(!text.includes('Internal Server Error'),`${path} render`);}
+  if(r.headers.get('content-type')?.includes('text/html')){
+    assert.ok(text.includes('WrongGoods'),`${path} body`);
+    assert.ok(!text.includes('Internal Server Error'),`${path} render`);
+  }
   records.push({path,status:r.status,bytes:text.length,robots:r.headers.get('x-robots-tag')});
 }
 for(const [path,statuses] of [['/api/owner/products',[401,503]],['/api/owner/inbox',[401,503]],['/api/owner/media/unknown',[401,503]],['/api/media/unknown',[404,503]],['/api/downloads/private.zip',[401]],['/api/orders/status?status=paid',[401]]]){
