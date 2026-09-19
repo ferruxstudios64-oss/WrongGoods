@@ -47,7 +47,7 @@ config.d1_databases=[{
   migrations_dir:'../migrations',
 }];
 config.r2_buckets=[];
-config.vars={...(config.vars||{}),COMMERCE_LIVE_ENABLED:'false'};
+config.vars={...(config.vars||{}),COMMERCE_LIVE_ENABLED:'false',OWNER_MAGIC_LINK_ENABLED:'true'};
 config.keep_vars=true;
 config.observability={enabled:false};
 
