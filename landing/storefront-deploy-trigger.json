@@ -1,0 +1,5 @@
+{
+  "release": "storefront-v1",
+  "revision": 1,
+  "note": "Update this file with storefront changes so the existing production workflow is triggered."
+}
